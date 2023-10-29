@@ -1,0 +1,44 @@
+﻿@model CreateRequestViewModel
+
+@{
+    ViewData["Title"] = "Új igény";
+}
+
+<h1 class="my-5">@ViewData["Title"]</h1>
+
+<form asp-controller="Request" asp-action="CreateTimeOffRequest" method="post" class="form-group">
+    <div class="form-group">
+        <label asp-for="EmployeeId">Igénylő:</label>
+        <select asp-for="EmployeeId" class="form-control">
+            @foreach (var item in ViewData["Employees"] as List<EmployeeDto>)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group my-4">
+        <label asp-for="TimeOffStart">Kezdő dátum:</label>
+        <input asp-for="TimeOffStart" class="form-control" type="date">
+    </div>
+    <div class="form-group my-4">
+        <label asp-for="TimeOffEnd">Befejező dátum:</label>
+        <input asp-for="TimeOffEnd" class="form-control" type="date">
+    </div>
+    <div class="form-group my-4">
+        <label asp-for="Description">Leírás:</label>
+        <textarea class="form-control" asp-for="Description" rows="4" style="resize:none"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Küldés</button>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</form>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<EmployeeDto>
+
+@{
+    ViewData["Title"] = "Alkalmazottak";
+}
+
+<h1 class="my-5">@ViewData["Title"]</h1>
+
+<div class="bg-light p-5">
+    <table class="table table-hover table-bordered">
+        <thead class="text-center bg-dark text-white">
+            <tr>
+                <th>
+                    Alkalmazott
+                </th>
+                <th>
+                    Születési Dátum
+                </th>
+                <th>
+                    Szabadság igények
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.DateOfBirth</td>
+                    <td><a asp-controller="Employees" asp-action="Requests" asp-route-id="@item.Id" class="btn btn-outline-primary">Igények megtekintése</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

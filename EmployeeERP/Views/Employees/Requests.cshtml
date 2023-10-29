@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TimeOffRequestDto>
+
+@{
+    ViewData["Title"] = "Alkalmazott Szabadságigényei";
+}
+
+<a asp-controller="Employees" asp-action="Index" class="btn btn-outline-primary">Vissza</a>
+<h1 class="my-5">@ViewData["Title"]</h1>
+
+<div class="bg-light p-5">
+    <table class="table table-hover table-bordered">
+        <thead class="text-center bg-dark text-white">
+            <tr>
+                <th>
+                    Igénylő
+                </th>
+                <th>
+                    Szabadság Kezdete
+                </th>
+                <th>
+                    Szabadság Vége
+                </th>
+                <th>
+                    Indoklás/Leírás
+                </th>
+                <th>
+                    Igénylés dátuma
+                </th>
+                <th>
+                    Státusz
+                </th>
+                <th>
+                    Opciók
+                </th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.EmployeeName</td>
+                    <td>@item.TimeOffStart</td>
+                    <td>@item.TimeOffEnd</td>
+                    <td>@item.Description</td>
+                    <td>@item.DateOfRequest</td>
+                    <td>
+                            @switch (item.Status)
+                            {
+                                case 0:
+                                    <text>Folyamatban</text>
+                                    break;
+                                case 1:
+                                    <text>Elfogadva</text>
+                                    break;
+                                case 2:
+                                    <text>Elutasítva</text>
+                                    break;
+                                default:
+                                    <text>Egyéb</text>
+                                    break;
+                            }
+                    </td>
+                    <td><a asp-controller="Employees" asp-action="UpdateRequest" asp-route-id="@item.Id" class="btn btn-outline-primary">Megnyitás</a></td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+</div>

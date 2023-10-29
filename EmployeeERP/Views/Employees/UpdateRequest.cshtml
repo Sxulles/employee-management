@@ -1,0 +1,42 @@
+﻿@model TimeOffRequestDto
+@{
+    ViewData["Title"] = "Szabadságigény";
+}
+
+<h1 class="my-5">@ViewData["Title"]</h1>
+
+<div class="bg-light p-5 container-fluid">
+    <form asp-controller="Employees" asp-action="UpdateTimeOffRequest" method="patch" class="form-group">
+    <div class="form-group">
+        <h6>Igénylő:</h6>
+            <p>@Model.EmployeeName</p>
+        <h6>Igénylés dátuma:</h6>
+            <p>@Model.DateOfRequest</p>
+        <h6>Szabadság tervezett kezdete:</h6>
+            <p>@Model.TimeOffStart</p>
+        <h6>Szabadság tervezett vége:</h6>
+            <p>@Model.TimeOffEnd</p>
+        <h6 class="mt-4">Indoklás/Leírás:</h6>
+            <p class="pe-5" style="word-wrap:break-word">@Model.Description</p>
+
+        <div class="mt-5">
+                <button class="btn btn-danger" id="rejectButton">Elutasítás</button>
+                <button class="btn btn-success" id="approveButton">Jóváhagyás</button>
+        </div>
+            <input type="hidden" id="statusValue" name="Status" value="@Model.Status" />
+        
+    </div>
+    </form>
+</div>
+
+
+<script>
+    // JavaScript kód a gombokra kattintás kezeléséhez
+    document.getElementById('rejectButton').addEventListener('click', function () {
+        document.getElementById('statusValue').value = 1; // Elutasítás értéke
+    });
+
+    document.getElementById('approveButton').addEventListener('click', function () {
+        document.getElementById('statusValue').value = 2; // Jóváhagyás értéke
+    });
+</script>
